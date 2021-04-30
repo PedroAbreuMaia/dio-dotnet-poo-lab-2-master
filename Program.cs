@@ -35,12 +35,15 @@ namespace DIO.Series
 						VisualizarSerie();
 						break;
 					case "8":
-						QuantidadeDeSeries();
+						InserirTemporada();
 						break;
 					case "9":
-						QuantidadeDeSeriesValidas();
+						QuantidadeDeSeries();
 						break;
 					case "10":
+						QuantidadeDeSeriesValidas();
+						break;
+					case "11":
 						QuantidadeDeSeriesExcluidas();
 						break;
 					case "C":
@@ -122,8 +125,10 @@ namespace DIO.Series
 			foreach (var serie in lista)
 			{
                 var excluido = serie.retornaExcluido();
+				var temporadas = serie.retornaTemporadas();
                 
-				Console.WriteLine("#ID {0}: - {1} {2}", serie.retornaId(), serie.retornaTitulo(), (excluido ? "*Excluído*" : ""));
+				Console.WriteLine("#ID {0}: - {1}, temporadas {2} {3}", serie.retornaId(), serie.retornaTitulo(), 
+									(temporadas.Count > 0 ? temporadas.Count.ToString() : "0"), (excluido ? "*Excluído*" : ""));
 			}
 		}
 
@@ -141,7 +146,9 @@ namespace DIO.Series
 
 			foreach (var serie in lista)
 			{                
-				Console.WriteLine("#ID {0}: - {1}", serie.retornaId(), serie.retornaTitulo());
+				var temporadas = serie.retornaTemporadas();
+				Console.WriteLine("#ID {0}: - {1}, temporadas {2}", serie.retornaId(), serie.retornaTitulo(), 
+									(temporadas.Count > 0 ? temporadas.Count.ToString() : "0"));
 			}
 		}
 
@@ -159,7 +166,9 @@ namespace DIO.Series
 
 			foreach (var serie in lista)
 			{                
-				Console.WriteLine("#ID {0}: - {1}", serie.retornaId(), serie.retornaTitulo());
+				var temporadas = serie.retornaTemporadas();
+				Console.WriteLine("#ID {0}: - {1}, temporadas {2}", serie.retornaId(), serie.retornaTitulo(), 
+									(temporadas != null ? temporadas.Count.ToString() : "0"));
 			}
 		}
 
@@ -194,6 +203,29 @@ namespace DIO.Series
 			repositorio.Insere(novaSerie);
 		}
 
+		 private static void InserirTemporada()
+		{
+			Console.WriteLine("Inserir nova Temporada");
+
+			// https://docs.microsoft.com/pt-br/dotnet/api/system.enum.getvalues?view=netcore-3.1
+			// https://docs.microsoft.com/pt-br/dotnet/api/system.enum.getname?view=netcore-3.1
+			Console.Write("Digite o id da Série: ");
+			int entradaId = int.Parse(Console.ReadLine());
+
+			Console.Write("Digite a Descrição da Temporada: ");
+			string entradaDescricao = Console.ReadLine();
+
+			Console.Write("Digite o Ano de Início da Temporada: ");
+			int entradaAno = int.Parse(Console.ReadLine());
+
+			Console.Write("Digite a Quantidade de Episodios na Temporada: ");
+			int entradaQtdEpisódios = int.Parse(Console.ReadLine());
+
+			Temporada novaTemporada = new Temporada(entradaDescricao, entradaAno, entradaQtdEpisódios);
+
+			repositorio.InsereTemporada(entradaId, novaTemporada);
+		}
+
 		private static void QuantidadeDeSeries()
 		{
 			Console.WriteLine("Quantidade de séries cadastradas");
@@ -224,9 +256,10 @@ namespace DIO.Series
 			Console.WriteLine("5  - Atualizar série");
 			Console.WriteLine("6  - Excluir série");
 			Console.WriteLine("7  - Visualizar série");
-			Console.WriteLine("8  - Quantidade de séries");
-			Console.WriteLine("9  - Quantidade de séries validas");
-			Console.WriteLine("10 - Quantidade de séries excluidas");
+			Console.WriteLine("8  - Inserir nova temporada");
+			Console.WriteLine("9  - Quantidade de séries");
+			Console.WriteLine("10 - Quantidade de séries validas");
+			Console.WriteLine("11 - Quantidade de séries excluidas");
 			Console.WriteLine("C  - Limpar Tela");
 			Console.WriteLine("X  - Sair");
 			Console.WriteLine();

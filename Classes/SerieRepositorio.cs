@@ -24,6 +24,10 @@ namespace DIO.Series
 			nextId++;
 		}
 
+		public void InsereTemporada(int id, Temporada objeto) {
+			listaSerie[id].AdicionaTemporada(objeto);
+		}
+
 		public List<Serie> Lista()
 		{
 			return listaSerie;
