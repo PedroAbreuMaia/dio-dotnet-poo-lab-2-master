@@ -127,8 +127,10 @@ namespace DIO.Series
                 var excluido = serie.retornaExcluido();
 				var temporadas = serie.retornaTemporadas();
                 
-				Console.WriteLine("#ID {0}: - {1}, temporadas {2} {3}", serie.retornaId(), serie.retornaTitulo(), 
-									(temporadas.Count > 0 ? temporadas.Count.ToString() : "0"), (excluido ? "*Excluído*" : ""));
+				Console.WriteLine("#ID {0}: - {1}, temporadas {2}, Número de Episódios {3} {4}", serie.retornaId(), serie.retornaTitulo(), 
+									(temporadas.Count > 0 ? temporadas.Count.ToString() : "0"), 
+									(serie.retornaNumeroEpisodios() > 0 ? serie.retornaNumeroEpisodios().ToString() : ""),
+									(excluido ? ",*Excluído*" : ""));
 			}
 		}
 
@@ -147,8 +149,9 @@ namespace DIO.Series
 			foreach (var serie in lista)
 			{                
 				var temporadas = serie.retornaTemporadas();
-				Console.WriteLine("#ID {0}: - {1}, temporadas {2}", serie.retornaId(), serie.retornaTitulo(), 
-									(temporadas.Count > 0 ? temporadas.Count.ToString() : "0"));
+				Console.WriteLine("#ID {0}: - {1}, temporadas {2}, Número de Episódios {3}", serie.retornaId(), serie.retornaTitulo(), 
+									(temporadas.Count > 0 ? temporadas.Count.ToString() : "0"), 
+									(serie.retornaNumeroEpisodios() > 0 ? serie.retornaNumeroEpisodios().ToString() : ""));
 			}
 		}
 
@@ -167,8 +170,9 @@ namespace DIO.Series
 			foreach (var serie in lista)
 			{                
 				var temporadas = serie.retornaTemporadas();
-				Console.WriteLine("#ID {0}: - {1}, temporadas {2}", serie.retornaId(), serie.retornaTitulo(), 
-									(temporadas != null ? temporadas.Count.ToString() : "0"));
+				Console.WriteLine("#ID {0}: - {1}, temporadas {2}, Número de Episódios {3}", serie.retornaId(), serie.retornaTitulo(), 
+									(temporadas.Count > 0 ? temporadas.Count.ToString() : "0"), 
+									(serie.retornaNumeroEpisodios() > 0 ? serie.retornaNumeroEpisodios().ToString() : ""));
 			}
 		}
 

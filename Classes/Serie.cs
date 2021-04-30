@@ -65,6 +65,18 @@ namespace DIO.Series
 			return this.temporadas;
 		}
 
+		public int retornaNumeroEpisodios()
+		{
+			if (this.temporadas.Count == 0)
+				return 0;
+			int numEp = 0;
+			foreach(var temp in this.temporadas) 
+			{
+				numEp += temp.retornaNumeroEpisodios();
+			}
+			return numEp;
+		}
+
         public void Excluir() {
             this.Excluido = true;
         }
